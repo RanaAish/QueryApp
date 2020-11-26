@@ -8,6 +8,7 @@ import 'package:ecommerce/screens/about.dart';
 import 'questionnaire.dart';
 import 'package:ecommerce/servies/store.dart';
 import 'package:ecommerce/model/query.dart';
+import 'package:ecommerce/screens/showquetion.dart';
 class adminhome extends StatefulWidget {
   static String id = "admin";
   @override
@@ -59,14 +60,19 @@ class _adminhomeState extends State<adminhome> {
                     queries.add(query(
                        title: item[kQuerytitle],
                         des: item[kQuerydesc],
-                        category: item[kQuerycategory]
+                        category: item[kQuerycategory],
+                        pid: doc.documentID
                     ));
                   }
             return ListView.builder(itemBuilder:(context,index)=>Container( padding:EdgeInsets.only(top: 5,right: 10,left: 10) ,child: Card(  elevation: 2,
               shape: RoundedRectangleBorder(
                   side: BorderSide( color: kMainColor, width: 0.5),
                   borderRadius: BorderRadius.circular(50)),child: ListTile(title:Text(queries[index].title),
-                trailing: Icon(Icons.edit,color:kMainColor,),),),),itemCount: queries.length);
+                trailing: Icon(Icons.arrow_forward_ios,color:kMainColor,size: 16,),onTap: ()
+                {
+                  Navigator.pushNamed(context,showquetion.id ,arguments: queries[index].pid);
+
+                },),),),itemCount: queries.length);
             }
           else
             {

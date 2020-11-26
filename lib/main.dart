@@ -9,30 +9,39 @@ import 'package:ecommerce/screens/about.dart';
 import 'package:ecommerce/screens/adminhome.dart';
 import 'package:ecommerce/screens/questionnaire.dart';
 import 'screens/editprofile.dart';
-
+import 'package:ecommerce/provider/logindata.dart';
+import 'package:ecommerce/screens/startscreen.dart';
+import 'package:ecommerce/screens/showquetion.dart';
+import 'package:ecommerce/screens/addque.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider <provider> (create: (context) => provider(),
-      child:
-      MaterialApp(
-          debugShowCheckedModeBanner: false,
-          initialRoute:home.id,
-          routes: {
-            loginscreen.id: (context) => loginscreen(),
-            signup.id:(context)=>signup(),
-            home.id:(context)=>home(),
-            contact.id:(context)=>contact(),
-            about.id:(context)=>about(),
-            adminhome.id:(context)=>adminhome(),
-            questionnaire.id:(context)=>questionnaire(),
-            editprofile.id:(context)=>editprofile()
+    return  MultiProvider(
+      providers:
+      [
+        ChangeNotifierProvider <provider> (create: (context)=> provider(),),
+        ChangeNotifierProvider <logindata> (create: (context)=> logindata(),),
+      ]
+      ,child:  MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute:startscreen.id,
+      routes: {
+        loginscreen.id: (context) => loginscreen(),
+        signup.id:(context)=>signup(),
+        home.id:(context)=>home(),
+        contact.id:(context)=>contact(),
+        about.id:(context)=>about(),
+        adminhome.id:(context)=>adminhome(),
+        questionnaire.id:(context)=>questionnaire(),
+        editprofile.id:(context)=>editprofile(),
+        startscreen.id:(context)=>startscreen(),
+        addque.id:(context)=>addque(),
+        showquetion.id:(context)=>showquetion(),
+      },
+    ),);
 
-          }
-      ),
-    );
   }
 }
 @override

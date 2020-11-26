@@ -49,17 +49,18 @@ class home extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<user> users = [];
+
                 for (var doc in snapshot.data.documents) {
                   var item = doc.data;
-                  if (item[kuseremail] == email &&  item[kuserpass] == pass) {
-                  users.add(user(
-                      name: item[kusername],
-                      email:item[kuseremail],
-                      pic: item[kuserpicture]
-                  ));
-                  //break;
-                  //}
 
+                  if (item[kuseremail] == email && item[kuserpass] == pass) {
+                    users.add(user(
+                        name: item[kusername],
+                        email: item[kuseremail],
+                        pid: doc.documentID,
+                        pic: item[kuserpicture]));
+                   // break;
+                    //}
                 return new Drawer(
                   child: new ListView(
                     children: <Widget>[
@@ -69,11 +70,10 @@ class home extends StatelessWidget {
                         accountEmail: Text(users[0].email),
                         currentAccountPicture: GestureDetector(
                           child: new CircleAvatar(
-                            //backgroundColor: Colors.grey,
-                              backgroundImage:users[0].pic == null
-                                  ? AssetImage("images/buy.png")
-                                  : NetworkImage(
-                                  users[0].pic),
+                              backgroundColor: Colors.grey,
+                             backgroundImage: users[0].pic == 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU'
+                                  ? NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU')
+                                  : NetworkImage(users[0].pic),
                               child: Stack(
                                 children: <Widget>[
                                   Positioned(
@@ -94,7 +94,7 @@ class home extends StatelessWidget {
                                         child: InkWell(
                                           onTap: () {
                                             Navigator.pushNamed(
-                                                context, editprofile.id);
+                                                context, editprofile.id,arguments: users[0]);
                                           },
                                           child: Icon(
                                             Icons.edit,
@@ -200,8 +200,10 @@ class home extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => loginscreen()));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => loginscreen()));
                         },
                         child: ListTile(
                           title: Text('Log out'),
@@ -214,65 +216,13 @@ class home extends StatelessWidget {
                     ],
                   ),
                 );
+              } }}else {
+                return Center(
+                  child: Text("loading.........."),
+                );
               }
-            }}}),
+            }),
         backgroundColor: Colors.white,
-        body: Container(
-            child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(top: 60, bottom: 7),
-                            padding: EdgeInsets.only(bottom: 11),
-                            child: Text("Digital Information",
-                                style: TextStyle(
-                                    fontFamily: 'Pacifico', fontSize: 25)),
-                          ),
-                          SizedBox(
-                            height: windowHeight * .01,
-                          ),
-                          Center(
-                              child: Text(
-                                "We make online exam easy,",
-                                style: TextStyle(fontSize: 16),
-                              )),
-                          SizedBox(
-                            height: windowHeight * .01,
-                          ),
-                          Center(
-                              child: Text("Using our app to take exam anywhere ",
-                                  style: TextStyle(fontSize: 16)))
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 0, right: 30, left: 30),
-                      child: Center(
-                        child: Image(image: AssetImage("images/exam.gif")),
-                      ),
-                    ),
-                    Container(
-                      width: 260,
-                      padding: EdgeInsets.only(top: 50, bottom: 80),
-                      child: FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, signup.id);
-                          },
-                          child: Text(
-                            'Get Started',
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          color: kMainColor),
-                    )
-                  ],
-                )))
-    );
+        body: Container());
   }
 }

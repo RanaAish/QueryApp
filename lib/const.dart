@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 const kMainColor = Color(0xFFFFC12F);
 const kSecondaryColor = Color(0xFFFFE6AC);
 const kdatabase="db";
@@ -13,3 +11,6 @@ const kuserpass="userpassword";
 const kuseremail="useremail";
 const kuserpassconfirmed="userpassconfirmed";
 const kuserpicture="userpicture";
+const kquesion="question";
+const kquetitle="questiontitle";
+const kcqueryid="queryid";

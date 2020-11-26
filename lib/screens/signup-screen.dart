@@ -1,6 +1,4 @@
 import 'package:ecommerce/provider/provider.dart';
-import 'package:ecommerce/provider/provider.dart';
-import 'package:ecommerce/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/const.dart';
 import 'package:ecommerce/servies/auth.dart';
@@ -10,6 +8,8 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart' show PlatformException;
 import 'package:ecommerce/screens/login-screen.dart';
+import 'package:ecommerce/servies/store.dart';
+import 'package:ecommerce/model/user.dart';
 
 class signup extends StatefulWidget {
   static String id = "signup";
@@ -19,11 +19,17 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   final Auth = auth();
+  final s =store();
   @override
   Widget build(BuildContext context) {
-    String email, pass;
+    String email, pass ,name;
     double height = MediaQuery.of(context).size.height;
     return
 
@@ -61,7 +67,11 @@ class _signupState extends State<signup> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
+
                   child: TextFormField(
+                      onSaved: (value) {
+                        name = value;
+                      },
                       validator: (value) {
                         if (value.isEmpty) return 'Name is empty';
                       },
@@ -168,10 +178,18 @@ class _signupState extends State<signup> {
 
                             globalKey.currentState.save();
                             try {
+                              s.adduser(user(
+                                  name: name,
+                                  email: email,
+                                  pass: pass,
+                                  passconfirmed: pass,
+                                  pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU"));
+
+
                               final AuthResult authresult =
                               await Auth.signup(email, pass);
                             //  modelhud.changeisloading(false);
-                              Navigator.pushNamed(context, home.id);
+                              Navigator.pushNamed(context, loginscreen.id);
                             }  on PlatformException catch ( error) {
                               modelhud.changeisloading(false);
 

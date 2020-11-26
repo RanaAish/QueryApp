@@ -53,7 +53,6 @@ class _questionnaireState extends State<questionnaire> {
                       title=value;
                     },
                     cursorColor: kMainColor,
-                    obscureText: true,
                     decoration: InputDecoration(
                         hintText: 'Title',
                         filled: true,
@@ -85,7 +84,6 @@ class _questionnaireState extends State<questionnaire> {
                       desc=value;
                     },
                     cursorColor: kMainColor,
-                    obscureText: true,
                     decoration: InputDecoration(
                         hintText: 'Description',
                         filled: true,
@@ -117,7 +115,6 @@ class _questionnaireState extends State<questionnaire> {
                       category=value;
                     },
                     cursorColor: kMainColor,
-                    obscureText: true,
                     decoration: InputDecoration(
                         hintText: 'Category',
                         filled: true,

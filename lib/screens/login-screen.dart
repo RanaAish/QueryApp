@@ -5,6 +5,9 @@ import 'package:ecommerce/screens/signup-screen.dart';
 import 'package:ecommerce/servies/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ecommerce/screens/home.dart';
+import 'package:ecommerce/provider/logindata.dart';
+import 'package:provider/provider.dart';
+
 class loginscreen extends StatefulWidget {
   static String id ="loginscreen";
   @override
@@ -20,6 +23,7 @@ class _loginscreenState extends State<loginscreen> {
   Widget build(BuildContext context) {
     String email,pass;
     double height =MediaQuery.of(context).size.height;
+    final data=Provider.of <logindata>(context);
     return Scaffold(
 
         backgroundColor:kMainColor,
@@ -157,6 +161,8 @@ class _loginscreenState extends State<loginscreen> {
                               try{
                                 final AuthResult authresult = await Auth.signin(
                                     email, pass);
+                                data.changedata(email, pass);
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
