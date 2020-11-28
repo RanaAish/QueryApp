@@ -13,6 +13,7 @@ import 'package:ecommerce/provider/logindata.dart';
 import 'package:ecommerce/screens/startscreen.dart';
 import 'package:ecommerce/screens/showquetion.dart';
 import 'package:ecommerce/screens/addque.dart';
+import 'screens/startexam.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         startscreen.id:(context)=>startscreen(),
         addque.id:(context)=>addque(),
         showquetion.id:(context)=>showquetion(),
+        startexam.id:(context)=>startexam(),
       },
     ),);
 

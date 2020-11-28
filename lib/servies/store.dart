@@ -42,7 +42,9 @@ class store
   {
     firestore.collection(kquesion).add({
       kquetitle:que.title,
-      kcqueryid:que.query_id
+      kcqueryid:que.query_id,
+      kquecorrectanswer:que.correctanswer,
+      kquelistofoptions:que.list_of_choices
     });
   }
   loadquestion()

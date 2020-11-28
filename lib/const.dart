@@ -14,3 +14,6 @@ const kuserpicture="userpicture";
 const kquesion="question";
 const kquetitle="questiontitle";
 const kcqueryid="queryid";
+const kquecorrectanswer ="correctanswer";
+const kquelistofoptions="choices";
+const kqueincorrect ="incorrectanswer";

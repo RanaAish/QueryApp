@@ -12,6 +12,7 @@ import 'package:ecommerce/model/query.dart';
 import 'package:ecommerce/servies/store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/model/user.dart';
+import 'package:ecommerce/screens/startexam.dart';
 
 class home extends StatelessWidget {
   static String id = "home";
@@ -223,6 +224,25 @@ class home extends StatelessWidget {
               }
             }),
         backgroundColor: Colors.white,
-        body: Container());
+        body: Container(
+          child: Center(
+            child:  Container(
+              width: 260,
+              padding: EdgeInsets.only(top: 50, bottom: 80),
+              child: FlatButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context,startexam.id,arguments:"fPbWRpiIi9WDWDnkAisl");
+                  },
+                  child: Text(
+                    'Get Started',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  color: kMainColor),
+            ),
+          ),
+        ));
   }
 }
