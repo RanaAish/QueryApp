@@ -189,8 +189,6 @@ class _editprofileState extends State<editprofile> {
                               ),
                               RaisedButton(
                                 onPressed: () async {
-                                  if (_globalkey.currentState.validate())
-                                    _globalkey.currentState.save();
                                   var storageimag = FirebaseStorage.instance
                                       .ref()
                                       .child(_imageFile.path);
@@ -198,6 +196,8 @@ class _editprofileState extends State<editprofile> {
                                   picpath = await (await task.onComplete)
                                       .ref
                                       .getDownloadURL();
+                                  if (_globalkey.currentState.validate())
+                                    _globalkey.currentState.save();
                                   s.updatedata(({
                                     kusername:name,
                                     kuserpass:pass,

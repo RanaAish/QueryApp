@@ -14,6 +14,7 @@ import 'package:ecommerce/screens/startscreen.dart';
 import 'package:ecommerce/screens/showquetion.dart';
 import 'package:ecommerce/screens/addque.dart';
 import 'screens/startexam.dart';
+import 'screens/change password.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         addque.id:(context)=>addque(),
         showquetion.id:(context)=>showquetion(),
         startexam.id:(context)=>startexam(),
+        changepassword.id:(context)=>changepassword(),
       },
     ),);
 

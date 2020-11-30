@@ -12,19 +12,27 @@ import 'package:ecommerce/model/query.dart';
 import 'package:ecommerce/servies/store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/model/user.dart';
+import 'package:provider/provider.dart';
 import 'package:ecommerce/screens/startexam.dart';
+import 'package:ecommerce/screens/change password.dart';
+import 'package:ecommerce/provider/logindata.dart';
 
 class home extends StatelessWidget {
   static String id = "home";
+
   final Auth = auth();
+
   String email, pass;
   home({Key key, @required this.email, this.pass}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
+
     final _store = store();
     final query _query = ModalRoute.of(context).settings.arguments;
     final windowHeight = MediaQuery.of(context).size.height;
     final windowWidth = MediaQuery.of(context).size.width;
+    final data = Provider.of<logindata>(context);
     return Scaffold(
         appBar: new AppBar(
           elevation: 0.1,
@@ -54,7 +62,7 @@ class home extends StatelessWidget {
                 for (var doc in snapshot.data.documents) {
                   var item = doc.data;
 
-                  if (item[kuseremail] == email && item[kuserpass] == pass) {
+                  if (item[kuseremail] == data.email && item[kuserpass] == data.pass) {
                     users.add(user(
                         name: item[kusername],
                         email: item[kuseremail],
@@ -174,7 +182,10 @@ class home extends StatelessWidget {
 
                       Divider(),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, changepassword.id,arguments: users[0]);
+                        },
                         child: ListTile(
                           title: Text('Settings'),
                           leading: Icon(
@@ -200,7 +211,8 @@ class home extends StatelessWidget {
                         ),
                       ),
                       InkWell(
-                        onTap: () {
+                        onTap: () async{
+                         await  Auth.logout();
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
