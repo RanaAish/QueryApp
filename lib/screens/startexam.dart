@@ -8,7 +8,7 @@ import 'package:ecommerce/servies/store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/model/question.dart';
 import 'package:ecommerce/screens/home.dart';
-import 'package:ecommerce/custom_widget/customdialog.dart';
+
 
 class startexam extends StatefulWidget {
   static String id = "startexam";

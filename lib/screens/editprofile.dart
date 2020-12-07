@@ -151,26 +151,6 @@ class _editprofileState extends State<editprofile> {
                             obscureText: true,
                           ),
                           SizedBox(
-                            height: 35,
-                          ),
-                          TextFormField(
-                            onSaved: (value) {
-                              confirmpass = value;
-                            },
-                            obscureText: true,
-                            initialValue: data.pass,
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(bottom: 2),
-                                labelText: 'Confirm Password',
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
-                                labelStyle: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                )),
-                          ),
-                          SizedBox(
                             height: 40,
                           ),
                           Row(
@@ -202,7 +182,7 @@ class _editprofileState extends State<editprofile> {
                                     kusername:name,
                                     kuserpass:pass,
                                     kuseremail:email,
-                                    kuserpassconfirmed:confirmpass,
+                                    kuserpassconfirmed:pass,
                                     kuserpicture:picpath
 
                                   }),_user.pid);

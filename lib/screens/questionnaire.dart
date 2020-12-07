@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:ecommerce/const.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,122 +43,91 @@ class _questionnaireState extends State<questionnaire> {
       body: Form(
         key: globalKey,
         child: Center(
-          child: Container(
-            width: 350,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextFormField(
-                    onSaved:(value)
-                    {
-                      title=value;
+            child: Container(
+              width: 350,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextFormField(
+                      onSaved:(value)
+                      {
+                        title=value;
+                      },
+                      cursorColor: kMainColor,
+                      decoration: InputDecoration(
+                          hintText: 'Title',
+                          filled: true,
+                          fillColor: kSecondaryColor,
+                          enabledBorder:OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Colors.white
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Colors.white
+                              )
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Colors.white
+                              ) )
+                      )
+                  ),
+                  SizedBox(
+                    height: height * .01,
+                  ),
+                  TextFormField(
+                      onSaved:(value)
+                      {
+                        desc=value;
+                      },
+                      cursorColor: kMainColor,
+                      decoration: InputDecoration(
+                          hintText: 'deadline',
+                          filled: true,
+                          fillColor: kSecondaryColor,
+                          enabledBorder:OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Colors.white
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Colors.white
+                              )
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                  color: Colors.white
+                              ) )
+                      )
+                  ),
+                  SizedBox(
+                    height:20,
+                  ),
+                  Container(
+                    width: 330,
+                    child: RaisedButton(onPressed: (){
+                      if(globalKey.currentState.validate())
+                        globalKey.currentState.save();
+                      s.addquery(query(title: title,des: desc,category: category));
+                      Navigator.pop(context);
+                      // globalKey.currentState.reset();
                     },
-                    cursorColor: kMainColor,
-                    decoration: InputDecoration(
-                        hintText: 'Title',
-                        filled: true,
-                        fillColor: kSecondaryColor,
-                        enabledBorder:OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )
+                        child:Text("Add", style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold),),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            ) )
-                    )
-                ),
-                SizedBox(
-                  height: height * .01,
-                ),
-                TextFormField(
-                    onSaved:(value)
-                    {
-                      desc=value;
-                    },
-                    cursorColor: kMainColor,
-                    decoration: InputDecoration(
-                        hintText: 'Description',
-                        filled: true,
-                        fillColor: kSecondaryColor,
-                        enabledBorder:OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            ) )
-                    )
-                ),
-                SizedBox(
-                  height: height * .01,
-                ),
-                TextFormField(
-                    onSaved:(value)
-                    {
-                      category=value;
-                    },
-                    cursorColor: kMainColor,
-                    decoration: InputDecoration(
-                        hintText: 'Category',
-                        filled: true,
-                        fillColor: kSecondaryColor,
-                        enabledBorder:OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            ) )
-                    )
-                ),
-                SizedBox(
-                  height:20,
-                ),
-                Container(
-                  width: 330,
-                  child: RaisedButton(onPressed: (){
-                    if(globalKey.currentState.validate())
-                      globalKey.currentState.save();
-                       s.addquery(query(title: title,des: desc,category: category));
-                       Navigator.pop(context);
-                   // globalKey.currentState.reset();
-                  },
-                      child:Text("Add", style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold),),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      color: kMainColor),
-                ),
-              ],
-            ),
-          )
+                        color: kMainColor),
+                  ),
+                ],
+              ),
+            )
         ),
       ),
     );

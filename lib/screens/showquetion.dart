@@ -1,5 +1,4 @@
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:ecommerce/const.dart';
 import 'package:ecommerce/screens/addque.dart';
@@ -57,22 +56,22 @@ class _showquetionState extends State<showquetion> {
             }
             return ListView.builder(
                 itemBuilder: (context, index) => Container(
-                      padding: EdgeInsets.only(top: 5, right: 10, left: 10),
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: kMainColor, width: 0.5),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: ListTile(
-                          title: Text(questions[index].title),
-                          trailing: Icon(
-                            Icons.check_circle,
-                            color: Colors.green,
-                            size: 16,
-                          ),
-                        ),
+                  padding: EdgeInsets.only(top: 5, right: 10, left: 10),
+                  child: Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(color: kMainColor, width: 0.5),
+                        borderRadius: BorderRadius.circular(50)),
+                    child: ListTile(
+                      title: Text(questions[index].title),
+                      trailing: Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 16,
                       ),
                     ),
+                  ),
+                ),
                 itemCount: questions.length);
           } else {
             return Center(
@@ -83,7 +82,7 @@ class _showquetionState extends State<showquetion> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, addque.id, arguments: pid_query);
+          Navigator.pushNamed(context,addque.id, arguments: pid_query);
         },
         child: Icon(Icons.add),
         backgroundColor: kMainColor,

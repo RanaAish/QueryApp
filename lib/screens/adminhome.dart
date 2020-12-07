@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/const.dart';
@@ -17,7 +18,7 @@ class adminhome extends StatefulWidget {
 
 class _adminhomeState extends State<adminhome> {
   final  _store=store();
-   @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -56,36 +57,37 @@ class _adminhomeState extends State<adminhome> {
             // not save old values
             List<query> queries=[];
             for (var doc in snapshot.data.documents) {
-                   var item=doc.data;
-                    queries.add(query(
-                       title: item[kQuerytitle],
-                        des: item[kQuerydesc],
-                        category: item[kQuerycategory],
-                        pid: doc.documentID
-                    ));
-                  }
+              var item=doc.data;
+              queries.add(query(
+                  title: item[kQuerytitle],
+                  des: item[kQuerydesc],
+                  category: item[kQuerycategory],
+                  pid: doc.documentID
+              ));
+            }
             return ListView.builder(itemBuilder:(context,index)=>Container( padding:EdgeInsets.only(top: 5,right: 10,left: 10) ,child: Card(  elevation: 2,
               shape: RoundedRectangleBorder(
                   side: BorderSide( color: kMainColor, width: 0.5),
-                  borderRadius: BorderRadius.circular(50)),child: ListTile(title:Text(queries[index].title),
+                  borderRadius: BorderRadius.circular(50)),
+              child: ListTile(title:Text(queries[index].title),
                 trailing: Icon(Icons.arrow_forward_ios,color:kMainColor,size: 16,),onTap: ()
                 {
                   Navigator.pushNamed(context,showquetion.id ,arguments: queries[index].pid);
 
                 },),),),itemCount: queries.length);
-            }
+          }
           else
-            {
-              return Center(child: Text("loading.........."),);
-            }
+          {
+            return Center(child: Text("loading.........."),);
+          }
         },),floatingActionButton: FloatingActionButton(
       onPressed: () {
-       Navigator.pushNamed(context, questionnaire.id);
+        Navigator.pushNamed(context, questionnaire.id);
       },
       child: Icon(Icons.add),
       backgroundColor: kMainColor,
 
     ),
-      ) ;
+    ) ;
   }
 }

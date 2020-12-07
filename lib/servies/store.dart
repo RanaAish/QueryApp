@@ -6,13 +6,13 @@ import 'package:ecommerce/model/question.dart';
 class store
 {
   Firestore firestore =Firestore.instance;
-   addquery (query q)
+  addquery (query q)
   {
-        firestore.collection(kdatabase).add({
-          kQuerytitle:q.title,
-          kQuerydesc:q.des,
-          kQuerycategory:q.category
-        });
+    firestore.collection(kdatabase).add({
+      kQuerytitle:q.title,
+      kQuerydesc:q.des,
+      kQuerycategory:q.category
+    });
   }
   Stream loadquery ()
   {
@@ -36,7 +36,7 @@ class store
   }
   updatedata (data,docmentid)
   {
-     firestore.collection(kdbusers).document(docmentid).updateData(data);
+    firestore.collection(kdbusers).document(docmentid).updateData(data);
   }
   addquesion (quesion que)
   {

@@ -26,8 +26,6 @@ class home extends StatelessWidget {
   home({Key key, @required this.email, this.pass}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-
     final _store = store();
     final query _query = ModalRoute.of(context).settings.arguments;
     final windowHeight = MediaQuery.of(context).size.height;
@@ -62,57 +60,61 @@ class home extends StatelessWidget {
                 for (var doc in snapshot.data.documents) {
                   var item = doc.data;
 
-                  if (item[kuseremail] == data.email && item[kuserpass] == data.pass) {
+                  if (item[kuseremail] == data.email &&
+                      item[kuserpass] == data.pass) {
                     users.add(user(
                         name: item[kusername],
                         email: item[kuseremail],
                         pid: doc.documentID,
                         pic: item[kuserpicture]));
-                   // break;
+                    // break;
                     //}
-                return new Drawer(
-                  child: new ListView(
-                    children: <Widget>[
+                    return new Drawer(
+                      child: new ListView(
+                        children: <Widget>[
 //            header
-                      new UserAccountsDrawerHeader(
-                        accountName: Text(users[0].name),
-                        accountEmail: Text(users[0].email),
-                        currentAccountPicture: GestureDetector(
-                          child: new CircleAvatar(
-                              backgroundColor: Colors.grey,
-                             backgroundImage: users[0].pic == 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU'
-                                  ? NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU')
-                                  : NetworkImage(users[0].pic),
-                              child: Stack(
-                                children: <Widget>[
-                                  Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      child: Container(
-                                        height: 25,
-                                        width: 25,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            width: 2,
-                                            color: Theme.of(context)
-                                                .scaffoldBackgroundColor,
-                                          ),
-                                          color: kSecondaryColor,
-                                        ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context, editprofile.id,arguments: users[0]);
-                                          },
-                                          child: Icon(
-                                            Icons.edit,
-                                            color: kMainColor,
-                                            size: 19,
-                                          ),
-                                        ),
-                                      )),
-                                  /* Positioned(
+                          new UserAccountsDrawerHeader(
+                            accountName: Text(users[0].name),
+                            accountEmail: Text(users[0].email),
+                            currentAccountPicture: GestureDetector(
+                              child: new CircleAvatar(
+                                  backgroundColor: Colors.grey,
+                                  backgroundImage: users[0].pic ==
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU'
+                                      ? NetworkImage(
+                                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU')
+                                      : NetworkImage(users[0].pic),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Positioned(
+                                          bottom: 0,
+                                          right: 0,
+                                          child: Container(
+                                            height: 25,
+                                            width: 25,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                width: 2,
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                              ),
+                                              color: kSecondaryColor,
+                                            ),
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                    context, editprofile.id,
+                                                    arguments: users[0]);
+                                              },
+                                              child: Icon(
+                                                Icons.edit,
+                                                color: kMainColor,
+                                                size: 19,
+                                              ),
+                                            ),
+                                          )),
+                                      /* Positioned(
                               child: Icon(
                                 Icons.person,
                                 size: 50,
@@ -123,138 +125,183 @@ class home extends StatelessWidget {
                               right: 25,
                               left: 10,
                             )*/
-                                ],
-                              )),
-                        ),
-                        decoration: new BoxDecoration(color: kMainColor),
-                      ),
+                                    ],
+                                  )),
+                            ),
+                            decoration: new BoxDecoration(color: kMainColor),
+                          ),
 //            body
-                      InkWell(
-                        onTap: () {},
-                        child: ListTile(
-                          title: Text('Home Page'),
-                          leading: Icon(Icons.home),
-                        ),
-                      ),
-
-                      InkWell(
-                        onTap: () {},
-                        child: ListTile(
-                          title: Text('My account'),
-                          leading: Icon(Icons.person),
-                        ),
-                      ),
-
-                      InkWell(
-                        onTap: () {},
-                        child: ListTile(
-                          title: Text('My Degrees'),
-                          leading: Icon(Icons.border_color),
-                        ),
-                      ),
-
-                      InkWell(
-                        onTap: () {},
-                        child: ListTile(
-                          title: Text('Exams'),
-                          leading: Icon(Icons.assignment),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {},
-                        child: ListTile(
-                          title: Text('Comments'),
-                          leading: Icon(Icons.comment),
-                        ),
-                      ),
-
-                      InkWell(
-                        onTap: () {
-                          {
-                            Navigator.pushNamed(context, contact.id);
-                          }
-                        },
-                        child: ListTile(
-                          title: Text('Contact'),
-                          leading: Icon(Icons.call),
-                        ),
-                      ),
-
-                      Divider(),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, changepassword.id,arguments: users[0]);
-                        },
-                        child: ListTile(
-                          title: Text('Settings'),
-                          leading: Icon(
-                            Icons.settings,
-                            color: Colors.blue,
+                          InkWell(
+                            onTap: () {},
+                            child: ListTile(
+                              title: Text('Home Page'),
+                              leading: Icon(Icons.home),
+                            ),
                           ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          {
-                            {
-                              Navigator.pushNamed(context, about.id);
-                            }
-                          }
-                        },
-                        child: ListTile(
-                          title: Text('About'),
-                          leading: Icon(
-                            Icons.help,
-                            color: Colors.green,
+
+                          InkWell(
+                            onTap: () {},
+                            child: ListTile(
+                              title: Text('My account'),
+                              leading: Icon(Icons.person),
+                            ),
                           ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () async{
-                         await  Auth.logout();
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => loginscreen()));
-                        },
-                        child: ListTile(
-                          title: Text('Log out'),
-                          leading: Icon(
-                            Icons.transit_enterexit,
-                            color: Colors.red,
+
+                          InkWell(
+                            onTap: () {},
+                            child: ListTile(
+                              title: Text('My Degrees'),
+                              leading: Icon(Icons.border_color),
+                            ),
                           ),
-                        ),
+
+                          InkWell(
+                            onTap: () {},
+                            child: ListTile(
+                              title: Text('Exams'),
+                              leading: Icon(Icons.assignment),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: ListTile(
+                              title: Text('Comments'),
+                              leading: Icon(Icons.comment),
+                            ),
+                          ),
+
+                          InkWell(
+                            onTap: () {
+                              {
+                                Navigator.pushNamed(context, contact.id);
+                              }
+                            },
+                            child: ListTile(
+                              title: Text('Contact'),
+                              leading: Icon(Icons.call),
+                            ),
+                          ),
+
+                          Divider(),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, changepassword.id,
+                                  arguments: users[0]);
+                            },
+                            child: ListTile(
+                              title: Text('Settings'),
+                              leading: Icon(
+                                Icons.settings,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              {
+                                {
+                                  Navigator.pushNamed(context, about.id);
+                                }
+                              }
+                            },
+                            child: ListTile(
+                              title: Text('About'),
+                              leading: Icon(
+                                Icons.help,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              await Auth.logout();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => loginscreen()));
+                            },
+                            child: ListTile(
+                              title: Text('Log out'),
+                              leading: Icon(
+                                Icons.transit_enterexit,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              } }}else {
+                    );
+                  }
+                }
+              } else {
                 return Center(
                   child: Text("loading.........."),
                 );
               }
             }),
         backgroundColor: Colors.white,
-        body: Container(
-          child: Center(
-            child:  Container(
-              width: 260,
-              padding: EdgeInsets.only(top: 50, bottom: 80),
-              child: FlatButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context,startexam.id,arguments:"fPbWRpiIi9WDWDnkAisl");
-                  },
-                  child: Text(
-                    'Get Started',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  color: kMainColor),
-            ),
-          ),
+        body: StreamBuilder<QuerySnapshot>(
+          stream: _store.loadquery(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              // not save old values
+              List<query> queries = [];
+              for (var doc in snapshot.data.documents) {
+                var item = doc.data;
+                queries.add(query(
+                    title: item[kQuerytitle],
+                    des: item[kQuerydesc],
+                    category: item[kQuerycategory],
+                    pid: doc.documentID));
+              }
+              return ListView(
+                children: <Widget>[
+                  SizedBox(height: 15.0),
+                  Container(
+                      padding: EdgeInsets.only(right: 15.0),
+                      width: MediaQuery.of(context).size.width - 30.0,
+                      height: MediaQuery.of(context).size.height - 50.0,
+                      child: ListView.builder(
+                          itemBuilder: (context, index) => Container(
+                                padding: EdgeInsets.only(
+                                    top: 5, right: 10, left: 10),
+                                child: Card(
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                      side: BorderSide(
+                                          color: kMainColor, width: 0.5),
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: ListTile(
+
+                                    title: Text(queries[index].title),
+                                    subtitle: Text(queries[index].des),
+                                    trailing: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: Text(
+                                        "Start",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      color: kMainColor,
+                                    ),
+                                    onTap: () {
+                                      Navigator.pushNamed(context, startexam.id,
+                                          arguments: queries[index].pid);
+                                    },
+                                  ),
+                                ),
+                              ),
+                          itemCount: queries.length)),
+                  SizedBox(height: 15.0)
+                ],
+              );
+            } else {
+              return Center(
+                child: Text("loading.........."),
+              );
+            }
+          },
         ));
   }
 }

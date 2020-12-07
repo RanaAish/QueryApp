@@ -21,7 +21,6 @@ class _changepasswordState extends State<changepassword> {
   final s = store();
   auth _auth=auth();
 
-
   @override
   Widget build(BuildContext context) {
     user _user = ModalRoute.of(context).settings.arguments;
