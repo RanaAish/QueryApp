@@ -160,7 +160,7 @@ class _editprofileState extends State<editprofile> {
                                 padding: EdgeInsets.symmetric(horizontal: 50),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20)),
-                                onPressed: () {},
+                                onPressed: () { Navigator.pop(context);},
                                 child: Text("CANCEL",
                                     style: TextStyle(
                                         fontSize: 14,
@@ -230,7 +230,7 @@ class _editprofileState extends State<editprofile> {
             },
             child: Icon(
               Icons.camera_alt,
-              color: kMainColor,
+              color: Color.fromRGBO(143, 148, 251, .9),
               size: 29.0,
             ),
           )),

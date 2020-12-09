@@ -99,7 +99,7 @@ class home extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .scaffoldBackgroundColor,
                                               ),
-                                              color: kSecondaryColor,
+                                              color:Colors.white,
                                             ),
                                             child: InkWell(
                                               onTap: () {
@@ -109,7 +109,7 @@ class home extends StatelessWidget {
                                               },
                                               child: Icon(
                                                 Icons.edit,
-                                                color: kMainColor,
+                                                color: Colors.black,
                                                 size: 19,
                                               ),
                                             ),
@@ -132,7 +132,7 @@ class home extends StatelessWidget {
                           ),
 //            body
                           InkWell(
-                            onTap: () {},
+                            onTap: () {  Navigator.pushNamed(context,home.id);},
                             child: ListTile(
                               title: Text('Home Page'),
                               leading: Icon(Icons.home),
@@ -140,14 +140,14 @@ class home extends StatelessWidget {
                           ),
 
                           InkWell(
-                            onTap: () {},
+                            onTap: () {  Navigator.pushNamed(context, editprofile.id);},
                             child: ListTile(
-                              title: Text('My account'),
+                              title: Text('My Profile'),
                               leading: Icon(Icons.person),
                             ),
                           ),
 
-                          InkWell(
+                         /* InkWell(
                             onTap: () {},
                             child: ListTile(
                               title: Text('My Degrees'),
@@ -169,7 +169,7 @@ class home extends StatelessWidget {
                               leading: Icon(Icons.comment),
                             ),
                           ),
-
+*/
                           InkWell(
                             onTap: () {
                               {
@@ -189,7 +189,7 @@ class home extends StatelessWidget {
                                   arguments: users[0]);
                             },
                             child: ListTile(
-                              title: Text('Settings'),
+                              title: Text('Change Password'),
                               leading: Icon(
                                 Icons.settings,
                                 color: Colors.blue,

@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ecommerce/screens/home.dart';
 import 'package:ecommerce/provider/logindata.dart';
 import 'package:provider/provider.dart';
+import 'package:ecommerce/Animation/FadeAnimation.dart';
 
 class loginscreen extends StatefulWidget {
   static String id ="loginscreen";
@@ -25,126 +26,159 @@ class _loginscreenState extends State<loginscreen> {
     double height =MediaQuery.of(context).size.height;
     final data=Provider.of <logindata>(context);
     return Scaffold(
-
-        backgroundColor:kMainColor,
+        backgroundColor: Colors.white,
         body: Form(
           key: globalKey,
-          child: ListView(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: Container(
-                  height: MediaQuery.of(context).size.height*.2,
-                  child:Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      Image(image:AssetImage("images/regulation.png"),width: 90,height: 90),
-                      Positioned(
-                          bottom: 0,
-                          child:
-                          Text("Exam",style: TextStyle(fontFamily: 'Pacifico',fontSize: 25),)
-                      ),
-
-                    ],
-                  ) ,
-                ),
-              ),
-              SizedBox(
-                height: height*.1,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child:  TextFormField(
-                    validator: (value){
-                      if(value.isEmpty)
-                        return 'email is empty';
-                    },
-                    cursorColor: kMainColor,
-                    onSaved: (value)
-                    {
-                      email=value;
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Enter your Email',
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: kMainColor,
-                      ),
-                      filled: true,
-                      fillColor: kSecondaryColor,
-                      enabledBorder:OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                              color: Colors.white
+          child: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 400,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('images/background.png'),
+                            fit: BoxFit.fill
+                        )
+                    ),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          left: 30,
+                          width: 80,
+                          height: 200,
+                          child: FadeAnimation(1, Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('images/light-1.png')
+                                )
+                            ),
                           )),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(
-                            color: Colors.white
                         ),
-
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                              color: Colors.white
-                          )
-                      ),
-                    )
-                ),
-              ),
-              SizedBox(
-                height: height*.02,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child:  TextFormField(
-                    validator: (value){
-                      if(value.isEmpty)
-                        return 'password is empty';
-                    },
-                    cursorColor: kMainColor,
-                    onSaved: (value)
-                    {
-                      pass=value;
-                    },
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        hintText: 'Enter your password',
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          color: kMainColor,
+                        Positioned(
+                          left: 140,
+                          width: 80,
+                          height: 150,
+                          child: FadeAnimation(1.3, Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('images/light-2.png')
+                                )
+                            ),
+                          )),
                         ),
-                        filled: true,
-                        fillColor: kSecondaryColor,
-                        enabledBorder:OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
+                        Positioned(
+                          right: 40,
+                          top: 40,
+                          width: 80,
+                          height: 150,
+                          child: FadeAnimation(1.5, Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage('images/clock.png')
+                                )
+                            ),
+                          )),
+                        ),
+                        Positioned(
+                          child: FadeAnimation(1.6, Container(
+                            margin: EdgeInsets.only(top: 50),
+                            child: Center(
+                              child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Pacifico', fontSize: 35,),
                             )),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            ) )
-                    )
-                ),
-              ),
-              SizedBox(
-                height: height*.05,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 120),
-                child:Builder(
-                    builder:(context) =>
-                        FlatButton(onPressed: () async {
-                          if (globalKey.currentState.validate()) {
+                          )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left:30.0,right: 30.0,bottom: 30.0,top: 20),
+                    child: Column(
+                      children: <Widget>[
+                        FadeAnimation(1.8, Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, .2),
+                                    blurRadius: 20.0,
+                                    offset: Offset(0, 10)
+                                )
+                              ]
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(top:2.0,bottom: 2.0),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[100]))),
+                                child: TextFormField(
+                                  onSaved: (value) {
+                                    email = value;
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty) return 'Email is empty';
+                                  },
+                                  keyboardType: TextInputType.text,
+                                  cursorColor: kMainColor,
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.email,
+                                        color: kMainColor,
+                                      ),
+                                      border: InputBorder.none,
+                                      hintText: "Email",
+                                      hintStyle:
+                                      TextStyle(color: Colors.grey[400])),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top:2.0,bottom: 2.0),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[100]))),
+                                child: TextFormField(
+                                  onSaved: (value) {
+                                    pass = value;
+                                  },
+                                  validator: (value) {
+                                    if (value.isEmpty) return 'Password is empty';
+                                  },
+                                  obscureText: true,
+                                  cursorColor: kMainColor,
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color: kMainColor,
+                                      ),
+                                      border: InputBorder.none,
+                                      hintText: "Password",
+                                      hintStyle:
+                                      TextStyle(color: Colors.grey[400])),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                        SizedBox(height: 30,),
+                        FadeAnimation(2, Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromRGBO(143, 148, 251, 1),
+                                    Color.fromRGBO(143, 148, 251, .6),
+                                  ]
+                              )
+                          ),
+                          child: Builder(builder: (context)=>FlatButton(onPressed: ()async{
+                            if (globalKey.currentState.validate()) {
                             globalKey.currentState.save();
                             if (isadmin)
                             {
@@ -174,58 +208,44 @@ class _loginscreenState extends State<loginscreen> {
                               }
                             }
                           }
-                        },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Text(
-                            "login", style: TextStyle(color: Colors.white),),
-                          color: Colors.black,)
+                          }, child: Center(
+                            child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16),),
+                          ),),)
+                        )),
+                        SizedBox(height: 20,),
+                        FadeAnimation(1.5,Column(children: [Text("Forgot Password?", style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1))),
+                          SizedBox(height: 20,),
+                          Row(
+                          children: <Widget>[
+                            Expanded (
+                                child:GestureDetector
+                                  (
+                                    onTap: (){
+                                      setState(() {
+                                        isadmin=true;
+                                      });
+                                    },
+                                    child: Text("i\'m admin",textAlign: TextAlign.center,style: TextStyle(color: isadmin ?Colors.white :Colors.black),)
+                                )
+                            ),
+                            Expanded (child:  GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  isadmin=false;
+                                });
+                              },
+                              child: Text("i\'m user",textAlign: TextAlign.center,style: TextStyle(color: isadmin ? Colors.black :Colors.white),),
+                            ),)
+                          ],
+                        ),],) ),
 
-                ),
-              ),
-              SizedBox(
-                height: height*.02,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("Don\'t have an account?",style: TextStyle(color: Colors.white,fontSize: 16),),
-                  GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context,signup.id);
-                      },
-                      child: Text("Sign up",style: TextStyle(color: Colors.black,fontSize: 16)))
+                      ],
+                    ),
+                  )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30 ,vertical:10),
-                child: Row(
-                  children: <Widget>[
-                    Expanded (
-                        child:GestureDetector
-                          (
-                            onTap: (){
-                              setState(() {
-                                isadmin=true;
-                              });
-                            },
-                            child: Text("i\'m admin",textAlign: TextAlign.center,style: TextStyle(color: isadmin ? kMainColor :Colors.white),)
-                        )
-                    ),
-                    Expanded (child:  GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          isadmin=false;
-                        });
-                      },
-                      child: Text("i\'m user",textAlign: TextAlign.center,style: TextStyle(color: isadmin ? Colors.white :kMainColor),),
-                    ),)
-                  ],
-                ),
-              ),
-
-            ],
-          ),)
-    );
+            ),
+          )
+    ));
   }
 }

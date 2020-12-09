@@ -45,22 +45,27 @@ class _addqueState extends State<addque> {
               onPressed: () {})
         ],
       ),
-      body: Form(
+      body:Directionality(
+        textDirection: TextDirection.rtl,
+          child: Form(
         key: globalKey,
         // child: Center(
         child:
         Container(
+
           padding: EdgeInsets.only(top: 50),
           //width: 360,
           child: SafeArea(
             child: SingleChildScrollView(
               child: Column(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
+
                       controller: titleController,
-                      decoration: getDecoration("Question name",Colors.red),
+                      decoration: getDecoration("Question name",Colors.blue),
 
                       validator: (t) {
                         if (t.isEmpty)
@@ -71,12 +76,13 @@ class _addqueState extends State<addque> {
                     ),
                   ),
                   RadioListTile(
+
                     groupValue: groupValue,
                     value: 0,
-                    activeColor: Colors.green,
+                    activeColor: Colors.blue,
                     title: TextFormField(
                       controller: oneController,
-                      decoration: getDecoration("Option 1",Colors.green),
+                      decoration: getDecoration("Option 1",Colors.black),
                       validator: (t) {
                         if (t.isEmpty)
                           return "*Required field";
@@ -96,7 +102,7 @@ class _addqueState extends State<addque> {
                     activeColor: Colors.blue,
                     title: TextFormField(
                       controller: twoController,
-                      decoration: getDecoration("Option 2",Colors.blue),
+                      decoration: getDecoration("Option 2",Colors.black),
 
                       validator: (t) {
                         if (t.isEmpty)
@@ -112,12 +118,13 @@ class _addqueState extends State<addque> {
                     },
                   ),
                   RadioListTile(
+
                     groupValue: groupValue,
                     value: 2,
-                    activeColor: Colors.green,
+                    activeColor: Colors.blue,
                     title: TextFormField(
                       controller: threeController,
-                      decoration: getDecoration("Option 3",Colors.green),
+                      decoration: getDecoration("Option 3",Colors.black),
                       validator: (t) {
                         if (t.isEmpty)
                           return "*Required field";
@@ -134,10 +141,10 @@ class _addqueState extends State<addque> {
                   RadioListTile(
                     groupValue: groupValue,
                     value: 3,
-                    activeColor: Colors.blueAccent,
+                    activeColor: Colors.blue,
                     title: TextFormField(
                       controller: fourController,
-                      decoration: getDecoration("Option 4",Colors.blueAccent),
+                      decoration: getDecoration("Option 4",Colors.black),
                       validator: (t) {
                         if (t.isEmpty)
                           return "*Required field";
@@ -180,9 +187,8 @@ class _addqueState extends State<addque> {
                 ],),
             ),
           ),
-        ),
-        //     )
-      ),
+        ), //     )
+      ),)
     );
   }
   getDecoration(hint,_color) {

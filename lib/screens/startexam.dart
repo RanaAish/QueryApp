@@ -22,6 +22,7 @@ class _startexamState extends State<startexam> {
   List<String> allAnswers = [];
   int questionNo = 0;
   int scores = 0;
+  String tittle;
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   int groupValue = 0;
   TextEditingController titleController = TextEditingController();
@@ -55,10 +56,14 @@ class _startexamState extends State<startexam> {
         actions: <Widget>[
           new IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: tittle =="Sucess" ?
+              Icon(
                 Icons.sentiment_satisfied,
                 color: Colors.white,
-              )),
+              ):Icon(
+                Icons.sentiment_dissatisfied,
+                color: Colors.white),
+              ),
           new IconButton(
               icon: Icon(
                 Icons.add_alert,
@@ -99,18 +104,18 @@ class _startexamState extends State<startexam> {
                               child: TextFormField(
                                 controller: titleController,
                                 decoration: getDecoration(
-                                    questions[questionNo].title, Colors.red),
+                                    questions[questionNo].title, Colors.blue),
                               ),
                             ),
                             RadioListTile(
                               groupValue: groupValue,
                               value: 0,
-                              activeColor: Colors.green,
+                              activeColor: Colors.blue,
                               title: TextFormField(
                                 controller: oneController,
                                 decoration: getDecoration(
                                     questions[questionNo].list_of_choices[0],
-                                    Colors.green),
+                                    Colors.black),
                               ),
                               onChanged: (t) {
                                 setState(() {
@@ -129,7 +134,7 @@ class _startexamState extends State<startexam> {
                                 },
                                 decoration: getDecoration(
                                     questions[questionNo].list_of_choices[1],
-                                    Colors.blue),
+                                    Colors.black),
                               ),
                               onChanged: (t) {
                                 setState(() {
@@ -140,7 +145,7 @@ class _startexamState extends State<startexam> {
                             RadioListTile(
                               groupValue: groupValue,
                               value: 2,
-                              activeColor: Colors.green,
+                              activeColor: Colors.blue,
                               title: TextFormField(
                                 controller: threeController,
                                 onSaved: (String value2) {
@@ -148,7 +153,7 @@ class _startexamState extends State<startexam> {
                                 },
                                 decoration: getDecoration(
                                     questions[questionNo].list_of_choices[2],
-                                    Colors.green),
+                                    Colors.black),
                               ),
                               onChanged: (t) {
                                 setState(() {
@@ -159,7 +164,7 @@ class _startexamState extends State<startexam> {
                             RadioListTile(
                               groupValue: groupValue,
                               value: 3,
-                              activeColor: Colors.blueAccent,
+                              activeColor: Colors.blue,
                               title: TextFormField(
                                 controller: fourController,
                                 onSaved: (String value3) {
@@ -167,7 +172,7 @@ class _startexamState extends State<startexam> {
                                 },
                                 decoration: getDecoration(
                                     questions[questionNo].list_of_choices[3],
-                                    Colors.blueAccent),
+                                    Colors.black),
                               ),
                               onChanged: (t) {
                                 setState(() {
@@ -250,8 +255,12 @@ class _startexamState extends State<startexam> {
   }
 
   showResult() {
-    String tittle, des;
-    des = "Correct Answers : " + scores.toString();
+    String  des;
+  double finalscore;
+
+
+    finalscore = ((scores / 3 )*100) ;
+    des = "Correct Answers : " + finalscore.round().toString()+"%";
 
     if (scores >= 2) {
       setState(() {

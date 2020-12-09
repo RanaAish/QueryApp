@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-const kMainColor = Color(0xFFFFC12F);
-const kSecondaryColor = Color(0xFFFFE6AC);
+//const kMainColor = Color(0xFFFFC12F);
+const kMainColor = Color.fromRGBO(143, 148, 251, .7);
+const kSecondaryColor = Colors.black12;
+//const kSecondaryColor = Color(0xFFFFE6AC);
 const kdatabase="db";
 const kQuerytitle="querytitle";
 const kQuerydesc="querydesc";

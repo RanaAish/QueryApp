@@ -66,7 +66,7 @@ class startscreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(top: 0, right: 30, left: 30),
                       child: Center(
-                        child: Image(image: AssetImage("images/exam.gif")),
+                        child: Image(image: AssetImage("images/output-onlinepngtools (1).png"),height: 350,width: 500,),
                       ),
                     ),
                     Container(
