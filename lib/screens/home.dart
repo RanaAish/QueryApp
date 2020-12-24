@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/const.dart';
 import 'package:ecommerce/screens/login-screen.dart';
+import 'package:focused_menu/modals.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../const.dart';
+import 'dart:core';
 import 'package:ecommerce/servies/auth.dart';
 import 'package:ecommerce/screens/signup-screen.dart';
 import 'package:ecommerce/screens/conract.dart';
@@ -16,6 +19,12 @@ import 'package:provider/provider.dart';
 import 'package:ecommerce/screens/startexam.dart';
 import 'package:ecommerce/screens/change password.dart';
 import 'package:ecommerce/provider/logindata.dart';
+import 'package:ecommerce/model/languge.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:focused_menu/focused_menu.dart';
+import 'package:provider/provider.dart';
+import 'package:ecommerce/provider/provider.dart';
+import 'package:ecommerce/screens/report.dart';
 
 class home extends StatelessWidget {
   static String id = "home";
@@ -35,20 +44,37 @@ class home extends StatelessWidget {
         appBar: new AppBar(
           elevation: 0.1,
           backgroundColor: kMainColor,
-          title: Text('Online Exam'),
+          title: Text(translator.translate('appbartitile')),
           actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(3.0),
+                child: DropdownButton(
+                    onChanged: (languge langua) {
+                      print(langua.name);
+                    },
+                    underline: SizedBox(),
+                    icon: Icon(
+                      Icons.language,
+                      color: Colors.white,
+                    ),
+                    items: languge
+                        .languageslist()
+                        .map<DropdownMenuItem<languge>>(
+                            (lang) => DropdownMenuItem(
+                                  value: lang,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [Text(lang.name)],
+                                  ),
+                                ))
+                        .toList())),
             new IconButton(
                 icon: Icon(
                   Icons.sentiment_satisfied,
                   color: Colors.white,
                 ),
                 onPressed: () {}),
-            new IconButton(
-                icon: Icon(
-                  Icons.add_alert,
-                  color: Colors.white,
-                ),
-                onPressed: () {})
           ],
         ),
         drawer: StreamBuilder<QuerySnapshot>(
@@ -59,7 +85,6 @@ class home extends StatelessWidget {
 
                 for (var doc in snapshot.data.documents) {
                   var item = doc.data;
-
                   if (item[kuseremail] == data.email &&
                       item[kuserpass] == data.pass) {
                     users.add(user(
@@ -67,6 +92,7 @@ class home extends StatelessWidget {
                         email: item[kuseremail],
                         pid: doc.documentID,
                         pic: item[kuserpicture]));
+                    data.getdocumentid(users[0].pid);
                     // break;
                     //}
                     return new Drawer(
@@ -77,6 +103,20 @@ class home extends StatelessWidget {
                             accountName: Text(users[0].name),
                             accountEmail: Text(users[0].email),
                             currentAccountPicture: GestureDetector(
+                              onTap: () {
+                                String src;
+                                if (users[0].pic ==
+                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU') {
+                                  src =
+                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU";
+                                  showdailogfunc(context, src, users[0].name,
+                                      users[0].email);
+                                } else {
+                                  src = users[0].pic;
+                                  showdailogfunc(context, src, users[0].name,
+                                      users[0].email);
+                                }
+                              },
                               child: new CircleAvatar(
                                   backgroundColor: Colors.grey,
                                   backgroundImage: users[0].pic ==
@@ -99,7 +139,7 @@ class home extends StatelessWidget {
                                                 color: Theme.of(context)
                                                     .scaffoldBackgroundColor,
                                               ),
-                                              color:Colors.white,
+                                              color: Colors.white,
                                             ),
                                             child: InkWell(
                                               onTap: () {
@@ -132,22 +172,33 @@ class home extends StatelessWidget {
                           ),
 //            body
                           InkWell(
-                            onTap: () {  Navigator.pushNamed(context,home.id);},
+                            onTap: () {
+                              Navigator.pushNamed(context, home.id);
+                            },
                             child: ListTile(
-                              title: Text('Home Page'),
+                              title: Text(translator.translate('homepage')),
                               leading: Icon(Icons.home),
                             ),
                           ),
 
                           InkWell(
-                            onTap: () {  Navigator.pushNamed(context, editprofile.id);},
+                            onTap: () {
+                              Navigator.pushNamed(context, editprofile.id);
+                            },
                             child: ListTile(
-                              title: Text('My Profile'),
+                              title: Text(translator.translate('profile')),
                               leading: Icon(Icons.person),
                             ),
                           ),
 
-                         /* InkWell(
+                          InkWell(
+                              onTap: ()  {
+                                Navigator.pushNamed(context, report.id);
+                              },
+                              child: (ListTile(
+                                  title: Text(translator.translate('Report')),
+                                  leading: Icon(Icons.assignment)))),
+                          /* InkWell(
                             onTap: () {},
                             child: ListTile(
                               title: Text('My Degrees'),
@@ -177,19 +228,20 @@ class home extends StatelessWidget {
                               }
                             },
                             child: ListTile(
-                              title: Text('Contact'),
+                              title: Text(translator.translate('contact')),
                               leading: Icon(Icons.call),
                             ),
                           ),
 
                           Divider(),
+
                           InkWell(
                             onTap: () {
                               Navigator.pushNamed(context, changepassword.id,
                                   arguments: users[0]);
                             },
                             child: ListTile(
-                              title: Text('Change Password'),
+                              title: Text(translator.translate('changepass')),
                               leading: Icon(
                                 Icons.settings,
                                 color: Colors.blue,
@@ -205,7 +257,7 @@ class home extends StatelessWidget {
                               }
                             },
                             child: ListTile(
-                              title: Text('About'),
+                              title: Text(translator.translate('about')),
                               leading: Icon(
                                 Icons.help,
                                 color: Colors.green,
@@ -221,7 +273,7 @@ class home extends StatelessWidget {
                                       builder: (context) => loginscreen()));
                             },
                             child: ListTile(
-                              title: Text('Log out'),
+                              title: Text(translator.translate('logout')),
                               leading: Icon(
                                 Icons.transit_enterexit,
                                 color: Colors.red,
@@ -243,7 +295,9 @@ class home extends StatelessWidget {
         body: StreamBuilder<QuerySnapshot>(
           stream: _store.loadquery(),
           builder: (context, snapshot) {
+            final modelhud = Provider.of<provider>(context, listen: false);
             if (snapshot.hasData) {
+              modelhud.changeisloading(false);
               // not save old values
               List<query> queries = [];
               for (var doc in snapshot.data.documents) {
@@ -254,54 +308,109 @@ class home extends StatelessWidget {
                     category: item[kQuerycategory],
                     pid: doc.documentID));
               }
-              return ListView(
-                children: <Widget>[
-                  SizedBox(height: 15.0),
-                  Container(
-                      padding: EdgeInsets.only(right: 15.0),
-                      width: MediaQuery.of(context).size.width - 30.0,
-                      height: MediaQuery.of(context).size.height - 50.0,
-                      child: ListView.builder(
-                          itemBuilder: (context, index) => Container(
-                                padding: EdgeInsets.only(
-                                    top: 5, right: 10, left: 10),
-                                child: Card(
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: kMainColor, width: 0.5),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: ListTile(
-
-                                    title: Text(queries[index].title),
-                                    subtitle: Text(queries[index].des),
-                                    trailing: RaisedButton(
+              return ModalProgressHUD(
+                  inAsyncCall: Provider.of<provider>(context).isloading,
+                  child: ListView(
+                    children: <Widget>[
+                      SizedBox(height: 15.0),
+                      Container(
+                          padding: EdgeInsets.only(right: 15.0),
+                          width: MediaQuery.of(context).size.width - 30.0,
+                          height: MediaQuery.of(context).size.height - 50.0,
+                          child: ListView.builder(
+                              itemBuilder: (context, index) => Container(
+                                    padding: EdgeInsets.only(
+                                        top: 5, right: 10, left: 10),
+                                    child: Card(
+                                      elevation: 2,
                                       shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                              color: kMainColor, width: 0.5),
                                           borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: Text(
-                                        "Start",
-                                        style: TextStyle(color: Colors.white),
+                                              BorderRadius.circular(50)),
+                                      child: ListTile(
+                                        title: Text(queries[index].title),
+                                        subtitle: Text(queries[index].des),
+                                        trailing: RaisedButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Text(
+                                            translator.translate('startbuttun'),
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          color: kMainColor,
+                                        ),
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, startexam.id,
+                                              arguments: queries[index].pid);
+                                        },
                                       ),
-                                      color: kMainColor,
                                     ),
-                                    onTap: () {
-                                      Navigator.pushNamed(context, startexam.id,
-                                          arguments: queries[index].pid);
-                                    },
                                   ),
-                                ),
-                              ),
-                          itemCount: queries.length)),
-                  SizedBox(height: 15.0)
-                ],
-              );
+                              itemCount: queries.length)),
+                      SizedBox(height: 15.0)
+                    ],
+                  ));
             } else {
+              // modelhud.changeisloading(true);
               return Center(
-                child: Text("loading.........."),
+                child: Text(translator.translate('load')),
               );
             }
           },
         ));
+  }
+
+  showdailogfunc(BuildContext context, img, title, des) {
+    return showDialog(
+        child: Center(
+          child: Material(
+            type: MaterialType.transparency,
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              padding: EdgeInsets.all(15),
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: 320,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ClipRect(
+                    child: Image.network(
+                      img,
+                      width: 200,
+                      height: 200,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    des,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey[500],
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+        context: context);
   }
 }

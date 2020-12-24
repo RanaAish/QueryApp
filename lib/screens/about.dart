@@ -54,65 +54,65 @@ class _aboutState extends State<about> {
         body: Container(
           child: Container(
               child: Column(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(top: 100, right: 10, left: 10),
-                child: Center(
-                  child: Image(
-                    image: AssetImage("images/about.png"),
-                    height: 200,
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.only(top: 100, right: 10, left: 10),
+                    child: Center(
+                      child: Image(
+                        image: AssetImage("images/about.png"),
+                        height: 200,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 5),
-                padding: EdgeInsets.only(bottom: 0),
-                child: Center(
-                  child:Column(
-                    children: <Widget>[
-                      Text("We use Digital transformation to apply",
-                        style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
-                      SizedBox(
-                        height: windowHeight * .01,
-                      ),
-                      Text("taking exam easy .whether you want to take exam  ",
-                        style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
-                      SizedBox(
-                        height: windowHeight * .01,
-                      ),
-                      Text("any where , know your strengths and weaknesses ,",
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 5),
+                    padding: EdgeInsets.only(bottom: 0),
+                    child: Center(
+                        child:Column(
+                          children: <Widget>[
+                            Text("We use Digital transformation to apply",
+                              style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
+                            SizedBox(
+                              height: windowHeight * .01,
+                            ),
+                            Text("taking exam easy .whether you want to take exam  ",
+                              style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
+                            SizedBox(
+                              height: windowHeight * .01,
+                            ),
+                            Text("any where , know your strengths and weaknesses ,",
 
-                        style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
-                      SizedBox(
-                        height: windowHeight * .01,
-                      ),
-                      Text( "chat with  Your teachers and colleagues, notify you ",
-                        style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
-                      SizedBox(
-                        height: windowHeight * .01,
-                      ),
-                      Text(" exam to study,Your level in each question",style: TextStyle( fontSize: 16,),textAlign: TextAlign.center)
-                    ],
+                              style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
+                            SizedBox(
+                              height: windowHeight * .01,
+                            ),
+                            Text( "chat with  Your teachers and colleagues, notify you ",
+                              style: TextStyle( fontSize: 16,),textAlign: TextAlign.center,),
+                            SizedBox(
+                              height: windowHeight * .01,
+                            ),
+                            Text(" exam to study,Your level in each question",style: TextStyle( fontSize: 16,),textAlign: TextAlign.center)
+                          ],
+                        )
+                    ),
+                  ),
+                  Container(
+                    width: 260,
+                    padding: EdgeInsets.only(top: 60, bottom: 80),
+                    child: FlatButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Read More',
+                          style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        color: kMainColor),
                   )
-                ),
-              ),
-              Container(
-                width: 260,
-                padding: EdgeInsets.only(top: 60, bottom: 80),
-                child: FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Read More',
-                      style: TextStyle(color: Colors.white, fontSize: 18,fontWeight: FontWeight.bold),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    color: kMainColor),
-              )
-            ],
-          )),
+                ],
+              )),
         ));
   }
 }

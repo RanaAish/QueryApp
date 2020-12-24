@@ -8,6 +8,7 @@ import 'package:ecommerce/screens/home.dart';
 import 'package:ecommerce/provider/logindata.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerce/Animation/FadeAnimation.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class loginscreen extends StatefulWidget {
   static String id ="loginscreen";
@@ -25,6 +26,8 @@ class _loginscreenState extends State<loginscreen> {
     String email,pass;
     double height =MediaQuery.of(context).size.height;
     final data=Provider.of <logindata>(context);
+
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Form(
@@ -84,7 +87,7 @@ class _loginscreenState extends State<loginscreen> {
                           child: FadeAnimation(1.6, Container(
                             margin: EdgeInsets.only(top: 50),
                             child: Center(
-                              child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Pacifico', fontSize: 35,),
+                              child: Text(translator.translate('signintitle'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Pacifico', fontSize: 35,),
                             )),
                           )),
                         )
@@ -121,7 +124,7 @@ class _loginscreenState extends State<loginscreen> {
                                     email = value;
                                   },
                                   validator: (value) {
-                                    if (value.isEmpty) return 'Email is empty';
+                                    if (value.isEmpty) return translator.translate('vaildationemail');
                                   },
                                   keyboardType: TextInputType.text,
                                   cursorColor: kMainColor,
@@ -131,7 +134,7 @@ class _loginscreenState extends State<loginscreen> {
                                         color: kMainColor,
                                       ),
                                       border: InputBorder.none,
-                                      hintText: "Email",
+                                      hintText: translator.translate('email'),
                                       hintStyle:
                                       TextStyle(color: Colors.grey[400])),
                                 ),
@@ -147,7 +150,7 @@ class _loginscreenState extends State<loginscreen> {
                                     pass = value;
                                   },
                                   validator: (value) {
-                                    if (value.isEmpty) return 'Password is empty';
+                                    if (value.isEmpty) return translator.translate('validationpass');
                                   },
                                   obscureText: true,
                                   cursorColor: kMainColor,
@@ -157,7 +160,7 @@ class _loginscreenState extends State<loginscreen> {
                                         color: kMainColor,
                                       ),
                                       border: InputBorder.none,
-                                      hintText: "Password",
+                                      hintText: translator.translate('password'),
                                       hintStyle:
                                       TextStyle(color: Colors.grey[400])),
                                 ),
@@ -187,7 +190,7 @@ class _loginscreenState extends State<loginscreen> {
 
                               else
                               {
-                                Scaffold.of(context).showSnackBar(SnackBar(content: Text("Something went wrong!")));
+                                Scaffold.of(context).showSnackBar(SnackBar(content: Text(translator.translate('adminmsg'))));
                               }
                             }
                             else
@@ -209,11 +212,11 @@ class _loginscreenState extends State<loginscreen> {
                             }
                           }
                           }, child: Center(
-                            child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16),),
+                            child: Text(translator.translate('signintitle'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 16),),
                           ),),)
                         )),
                         SizedBox(height: 20,),
-                        FadeAnimation(1.5,Column(children: [Text("Forgot Password?", style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1))),
+                        FadeAnimation(1.5,Column(children: [Text(translator.translate('rowsignin'), style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1))),
                           SizedBox(height: 20,),
                           Row(
                           children: <Widget>[
@@ -225,7 +228,7 @@ class _loginscreenState extends State<loginscreen> {
                                         isadmin=true;
                                       });
                                     },
-                                    child: Text("i\'m admin",textAlign: TextAlign.center,style: TextStyle(color: isadmin ?Colors.white :Colors.black),)
+                                    child: Text(translator.translate('admin'),textAlign: TextAlign.center,style: TextStyle(color: isadmin ?Colors.white :Colors.black),)
                                 )
                             ),
                             Expanded (child:  GestureDetector(
@@ -234,7 +237,7 @@ class _loginscreenState extends State<loginscreen> {
                                   isadmin=false;
                                 });
                               },
-                              child: Text("i\'m user",textAlign: TextAlign.center,style: TextStyle(color: isadmin ? Colors.black :Colors.white),),
+                              child: Text(translator.translate('user'),textAlign: TextAlign.center,style: TextStyle(color: isadmin ? Colors.black :Colors.white),),
                             ),)
                           ],
                         ),],) ),

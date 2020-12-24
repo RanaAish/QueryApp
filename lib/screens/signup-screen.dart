@@ -11,6 +11,7 @@ import 'package:ecommerce/screens/login-screen.dart';
 import 'package:ecommerce/servies/store.dart';
 import 'package:ecommerce/model/user.dart';
 import 'package:ecommerce/Animation/FadeAnimation.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class signup extends StatefulWidget {
   static String id = "signup";
@@ -98,7 +99,7 @@ class _signupState extends State<signup> {
                                   margin: EdgeInsets.only(top: 50),
                                   child: Center(
                                     child: Text(
-                                      "Signup",
+                                        translator.translate('signuptitle'),
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Pacifico', fontSize: 35,
@@ -140,7 +141,7 @@ class _signupState extends State<signup> {
                                           name = value;
                                         },
                                         validator: (value) {
-                                          if (value.isEmpty) return 'Name is empty';
+                                          if (value.isEmpty) return translator.translate('valdionname');
                                         },
                                         keyboardType: TextInputType.text,
                                         cursorColor: kMainColor,
@@ -150,7 +151,7 @@ class _signupState extends State<signup> {
                                               Icons.person,
                                               color: kMainColor,
                                             ),
-                                            hintText: "Name",
+                                            hintText:  translator.translate('name'),
                                             hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                       ),
@@ -166,7 +167,7 @@ class _signupState extends State<signup> {
                                           email = value;
                                         },
                                         validator: (value) {
-                                          if (value.isEmpty) return 'Email is empty';
+                                          if (value.isEmpty) return translator.translate('vaildationemail');
                                         },
                                         keyboardType: TextInputType.text,
                                         cursorColor: kMainColor,
@@ -176,7 +177,7 @@ class _signupState extends State<signup> {
                                               color: kMainColor,
                                             ),
                                             border: InputBorder.none,
-                                            hintText: "Email",
+                                            hintText:  translator.translate('email'),
                                             hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                       ),
@@ -192,7 +193,7 @@ class _signupState extends State<signup> {
                                           pass = value;
                                         },
                                         validator: (value) {
-                                          if (value.isEmpty) return 'Password is empty';
+                                          if (value.isEmpty) return translator.translate('validationpass');
                                         },
                                        obscureText: true,
                                         cursorColor: kMainColor,
@@ -202,7 +203,7 @@ class _signupState extends State<signup> {
                                               color: kMainColor,
                                             ),
                                             border: InputBorder.none,
-                                            hintText: "Password",
+                                            hintText:  translator.translate('password'),
                                             hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                       ),
@@ -228,21 +229,23 @@ class _signupState extends State<signup> {
                                     onPressed: () async {
                                       final modelhud=Provider.of <provider>(context,listen: false);
                                       modelhud.changeisloading(true);
-
                                       if (globalKey.currentState.validate()) {
 
                                         globalKey.currentState.save();
                                         try {
-                                          s.adduser(user(
+                                          final AuthResult authresult =
+                                          await Auth.signup(email, pass);
+                                          user u=user(
                                               name: name,
                                               email: email,
                                               pass: pass,
                                               passconfirmed: pass,
-                                              pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU"));
-                                          final AuthResult authresult =
-                                          await Auth.signup(email, pass);
+                                              totalscore: "0",
+                                              pic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRHQjaTpvr8Au0Bp4oDy6z-X1Fioy0c0yfQ&usqp=CAU");
+                                          s.adduser(u);
                                           //  modelhud.changeisloading(false);
                                           Navigator.pushNamed(context, loginscreen.id);
+
                                         }  on PlatformException catch ( error) {
                                           modelhud.changeisloading(false);
 
@@ -254,7 +257,7 @@ class _signupState extends State<signup> {
                                     },
                                     child: Center(
                                       child: Text(
-                                        "Signup",
+                                        translator.translate('signuobuttontext'),
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,fontSize: 16),
@@ -272,16 +275,19 @@ class _signupState extends State<signup> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Do have an account ? ",
+                                      translator.translate('rowsignuppart2'),
                                     style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),
                                   ),
+                                  Text( translator.translate('question'),
+
+                                      style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1))),
                                   GestureDetector(
                                       onTap: (){
                                         Navigator.pushNamed(context,loginscreen.id);
                                       },
-                                      child: Text("Login",
+                                      child: Text( translator.translate('rowsignuppart1'),
 
-                                          style: TextStyle(color: Colors.black)))
+                                          style: TextStyle(color: Colors.black))),
                                 ],
                               )),
                         ],

@@ -5,7 +5,7 @@ class provider extends ChangeNotifier
 {
   // modelhut
   bool isloading=false;
-   changeisloading (bool value)
+  changeisloading (bool value)
   {
     isloading=value;
     notifyListeners();

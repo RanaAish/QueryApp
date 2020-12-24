@@ -29,7 +29,7 @@ class auth {
   }
   Future logout() async {
 
-      return await _auth.signOut();
+    return await _auth.signOut();
 
   }
 }

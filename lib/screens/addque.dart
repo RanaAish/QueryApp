@@ -28,7 +28,7 @@ class _addqueState extends State<addque> {
       appBar: new AppBar(
         elevation: 0.1,
         backgroundColor: kMainColor,
-        title: Text('Online Exam'),
+        title: Text('Online Query'),
         actions: <Widget>[
           new IconButton(
               icon: Icon(
@@ -45,9 +45,10 @@ class _addqueState extends State<addque> {
               onPressed: () {})
         ],
       ),
-      body:Directionality(
-        textDirection: TextDirection.rtl,
-          child: Form(
+      body:
+      //Directionality(
+        //textDirection: TextDirection.rtl, child:
+      Form(
         key: globalKey,
         // child: Center(
         child:
@@ -188,7 +189,7 @@ class _addqueState extends State<addque> {
             ),
           ),
         ), //     )
-      ),)
+      ),//)
     );
   }
   getDecoration(hint,_color) {

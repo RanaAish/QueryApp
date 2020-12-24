@@ -15,7 +15,24 @@ import 'package:ecommerce/screens/showquetion.dart';
 import 'package:ecommerce/screens/addque.dart';
 import 'screens/startexam.dart';
 import 'screens/change password.dart';
-void main() => runApp(MyApp());
+import 'package:localize_and_translate/localize_and_translate.dart';
+import 'package:print_color/print_color.dart';
+import 'package:ecommerce/screens/report.dart';
+
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await translator.init(
+    localeDefault: LocalizationDefaultType.device,
+    languagesList: <String>['ar', 'en'],
+    assetsDirectory: 'assets/',
+    apiKeyGoogle: '<Key>', // NOT YET TESTED
+  );
+  runApp(LocalizedApp(
+    child: MyApp(),
+  ),);
+
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -27,7 +44,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider <logindata> (create: (context)=> logindata(),),
       ]
       ,child:  MaterialApp(
+
+      localizationsDelegates: translator.delegates, // Android + iOS Delegates
+      locale: translator.locale, // Active locale
+      supportedLocales: translator.locals(),
       debugShowCheckedModeBanner: false,
+
       initialRoute:startscreen.id,
       routes: {
         loginscreen.id: (context) => loginscreen(),
@@ -43,6 +65,7 @@ class MyApp extends StatelessWidget {
         showquetion.id:(context)=>showquetion(),
         startexam.id:(context)=>startexam(),
         changepassword.id:(context)=>changepassword(),
+        report.id:(context)=>report(),
       },
     ),);
 

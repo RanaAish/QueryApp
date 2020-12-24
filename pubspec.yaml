@@ -31,6 +31,10 @@ dependencies:
   firebase_storage:
   cloud_firestore: ^0.13.0+1
   simple_animations:
+  localize_and_translate:
+  print_color:
+  focused_menu:
+  charts_flutter:
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +59,10 @@ flutter:
      - images/905556fe-202c-4616-a231-2ee15e6c17b7.jpg
      - images/2c2b6075-ad19-4349-a82f-5b1f2c4844c0.jpg
      - images/2c2b6075-ad19-4349-a82f-5b1f2c4844c0.png
+     - images/transform.png
+     - images/download (1).png
+     - images/download.png
+     - images/computer.png
      - images/output-onlinepngtools (1).png
      - images/output-onlinepngtools.png
      - images/buy.png
@@ -70,6 +78,8 @@ flutter:
      - images/clock.png
      - images/light-2.png
      - images/light-1.png
+     - assets/ar.json
+     - assets/en.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,13 +1,16 @@
 import 'dart:async';
-
+import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/const.dart';
 import 'dart:core';
-import 'package:ecommerce/screens/addque.dart';
 import 'package:ecommerce/servies/store.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/model/question.dart';
-import 'package:ecommerce/screens/home.dart';
+import 'package:ecommerce/screens/report.dart';
+import 'package:ecommerce/model/languge.dart';
+import 'package:ecommerce/provider/logindata.dart';
+import 'package:provider/provider.dart';
+
 
 
 class startexam extends StatefulWidget {
@@ -17,12 +20,12 @@ class startexam extends StatefulWidget {
 }
 
 class _startexamState extends State<startexam> {
-
   final _store = store();
   List<String> allAnswers = [];
   int questionNo = 0;
   int scores = 0;
-  String tittle;
+  String tittle, vrtitile;
+
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   int groupValue = 0;
   TextEditingController titleController = TextEditingController();
@@ -47,29 +50,47 @@ class _startexamState extends State<startexam> {
 
   @override
   Widget build(BuildContext context) {
-    String pid_query = ModalRoute.of(context).settings.arguments;
+  //  query _query = ModalRoute.of(context).settings.arguments;
+    //String pid_query = _query.pid;
+    String pid_query=ModalRoute.of(context).settings.arguments;
+    final data = Provider.of<logindata>(context);
     return Scaffold(
       appBar: new AppBar(
         elevation: 0.1,
         backgroundColor: kMainColor,
-        title: Text('Online Exam'),
+        title: Text(translator.translate('appbartitile')),
         actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.all(3.0),
+              child: DropdownButton(
+                  onChanged: (languge langua) {
+                    print(langua.name);
+                  },
+                  underline: SizedBox(),
+                  icon: Icon(
+                    Icons.language,
+                    color: Colors.white,
+                  ),
+                  items: languge
+                      .languageslist()
+                      .map<DropdownMenuItem<languge>>((lang) =>
+                          DropdownMenuItem(
+                            value: lang,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [Text(lang.name)],
+                            ),
+                          ))
+                      .toList())),
           new IconButton(
-              onPressed: () {},
-              icon: tittle =="Sucess" ?
-              Icon(
-                Icons.sentiment_satisfied,
-                color: Colors.white,
-              ):Icon(
-                Icons.sentiment_dissatisfied,
-                color: Colors.white),
-              ),
-          new IconButton(
-              icon: Icon(
-                Icons.add_alert,
-                color: Colors.white,
-              ),
-              onPressed: () {})
+            onPressed: () {},
+            icon: vrtitile == "Sucess"
+                ? Icon(
+                    Icons.sentiment_satisfied,
+                    color: Colors.white,
+                  )
+                : Icon(Icons.sentiment_dissatisfied, color: Colors.white),
+          ),
         ],
       ),
       backgroundColor: Colors.white,
@@ -211,20 +232,20 @@ class _startexamState extends State<startexam> {
                                       setState(() {
                                         if (questionNo ==
                                             questions.length - 1) {
-                                          showResult();
+                                          showResult(data.userid, pid_query);
                                         } else {
                                           questionNo = questionNo + 1;
                                           groupValue = 0;
                                         }
                                       });
                                     } else {
-                                      showResult();
+                                      showResult(data.userid, pid_query);
                                     }
 
                                     print(scores);
                                   },
                                   child: Text(
-                                    "Next",
+                                    translator.translate('next'),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -235,10 +256,10 @@ class _startexamState extends State<startexam> {
                                   ),
                                   color: kMainColor),
                             ),
-                           // SizedBox(height:100),
+                            // SizedBox(height:100),
                             //Container(
-                              //child: Icon(Icons.check_circle,color: correct==
-                                //  questions[questionNo].correctanswer ? Colors.green: Colors.white),
+                            //child: Icon(Icons.check_circle,color: correct==
+                            //  questions[questionNo].correctanswer ? Colors.green: Colors.white),
                             //)
                           ],
                         ),
@@ -246,7 +267,7 @@ class _startexamState extends State<startexam> {
                     ));
           } else {
             return Center(
-              child: Text("loading.........."),
+              child: Text(translator.translate('load')),
             );
           }
         },
@@ -254,21 +275,38 @@ class _startexamState extends State<startexam> {
     );
   }
 
-  showResult() {
-    String  des;
-  double finalscore;
+  showResult(String user_id, String queryid) {
+    String des;
+    double finalscore;
 
+    final data = Provider.of<logindata>(context);
 
-    finalscore = ((scores / 3 )*100) ;
-    des = "Correct Answers : " + finalscore.round().toString()+"%";
+    finalscore = ((scores / 20) * 100);
+    des = translator.translate('correctanswer') +
+        finalscore.round().toString() +
+        "%";
+    setState(() {
+      _store.updatedata(
+          ({
+            kuserscore: finalscore.round().toString(),
+          }),
+          user_id);
+      _store.updatecategory(
+          ({kcategoryscore: finalscore.round().toString()}), queryid);
+      data.gettotalscore(finalscore.round().toString());
+      print(data.totalscore);
+    });
 
+    print(user_id);
     if (scores >= 2) {
       setState(() {
-        tittle = "Sucess";
+        vrtitile = "Sucess";
+        tittle = translator.translate('sucess');
       });
     } else {
       setState(() {
-        tittle = "Failure";
+        vrtitile = "Failure";
+        tittle = translator.translate('fauire');
       });
     }
     showDialog(
@@ -280,7 +318,7 @@ class _startexamState extends State<startexam> {
               ),
               elevation: 0,
               backgroundColor: Colors.transparent,
-              child: dialogcontent(context, tittle, des),
+              child: dialogcontent(context, tittle, des,queryid),
             ));
     /*AlertDialog(
         content: Text(
@@ -310,7 +348,7 @@ class _startexamState extends State<startexam> {
     );*/
   }
 
-  dialogcontent(BuildContext context, String title, String description) {
+  dialogcontent(BuildContext context, String title, String description,String pid) {
     return Stack(
       children: <Widget>[
         Container(
@@ -333,13 +371,13 @@ class _startexamState extends State<startexam> {
               Text(title,
                   style: TextStyle(
                     fontSize: 24.0,
-                    color:Colors.black54,
+                    color: Colors.black54,
                     fontWeight: FontWeight.w700,
                   )),
               SizedBox(height: 16.0),
               Text(
                 description,
-                style: TextStyle(fontSize: 16,color: Colors.green),
+                style: TextStyle(fontSize: 16, color: Colors.green),
               ),
               SizedBox(height: 24.0),
               Align(
@@ -347,7 +385,10 @@ class _startexamState extends State<startexam> {
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     FlatButton(
-                        child: Text("RETRY",style: TextStyle(color:Colors.red,fontSize: 16),),
+                        child: Text(
+                          translator.translate("RETRY"),
+                          style: TextStyle(color: Colors.red, fontSize: 16),
+                        ),
                         onPressed: () {
                           setState(() {
                             Navigator.pop(context);
@@ -356,12 +397,34 @@ class _startexamState extends State<startexam> {
                             scores = 0;
                           });
                         }),
-                    FlatButton(
-                      child: Text("CANCEL",style: TextStyle(color:Colors.blueAccent,fontSize: 16)),
+                    /* FlatButton(
+                      child: Text(translator.translate("CANCEL"),style: TextStyle(color:Colors.blueAccent,fontSize: 16)),
                       onPressed: () {
                         Navigator.pushNamed(context, home.id);
                       },
-                    ),
+                    ),*/
+                    FlatButton(
+                      child:Text(pid =="btUe20myhVex9ItcRyO8"?
+                          translator.translate("Continue"):translator.translate("Report"),
+                          style: TextStyle(
+                              color: Colors.blueAccent, fontSize: 16)),
+                      onPressed: () {
+                        if(pid == "btUe20myhVex9ItcRyO8")
+                          {
+                            String id="fPbWRpiIi9WDWDnkAisl";
+                            Navigator.pushNamed(context, startexam.id,
+                                arguments:id);
+                          }
+                        else
+                          {
+                           // Navigator.pop(context);
+                            //Navigator.pop(context);
+                            //Navigator.pop(context);
+                            Navigator.pushNamed(context, report.id);
+                          }
+
+                      },
+                    )
                   ])),
             ],
           ),

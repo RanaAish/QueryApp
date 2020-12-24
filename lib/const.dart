@@ -19,3 +19,6 @@ const kcqueryid="queryid";
 const kquecorrectanswer ="correctanswer";
 const kquelistofoptions="choices";
 const kqueincorrect ="incorrectanswer";
+const kuserscore="totalscore";
+const kuserid="pid";
+const kcategoryscore="score";

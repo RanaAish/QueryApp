@@ -188,5 +188,4 @@ class _contactState extends State<contact> {
               )
           ),
         ));
-  }
-}
+  }}

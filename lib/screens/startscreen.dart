@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ecommerce/const.dart';
 import '../const.dart';
 import 'package:ecommerce/screens/signup-screen.dart';
-
+import 'package:ecommerce/model/languge.dart';
+import 'package:localize_and_translate/localize_and_translate.dart';
 
 class startscreen extends StatelessWidget {
   static String id = "startscreen";
@@ -14,24 +15,40 @@ class startscreen extends StatelessWidget {
         appBar: new AppBar(
           elevation: 0.1,
           backgroundColor: kMainColor,
-          title: Text('Online Exam'),
+          title: Text(translator.translate('appbartitile')),
           actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.all(8.0),
+                child: DropdownButton(
+                    onChanged: (languge langua){
+                      print(langua.name);
+                    },
+                    underline: SizedBox(),
+                    onTap: (){ } ,
+                    icon: Icon(Icons.language,color: Colors.white,),
+                    items:
+                    languge.languageslist().map <DropdownMenuItem<languge>>((lang) =>DropdownMenuItem(
+                      value: lang,
+                      onTap: (){translator.setNewLanguage(context, newLanguage:lang.languagecode, restart: true);},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text(lang.name)],
+                      ),
+
+                    ) ).toList())
+            ),
             new IconButton(
                 icon: Icon(
                   Icons.sentiment_satisfied,
                   color: Colors.white,
                 ),
                 onPressed: () {}),
-            new IconButton(
-                icon: Icon(
-                  Icons.add_alert,
-                  color: Colors.white,
-                ),
-                onPressed: () {})
+
           ],
         ),
         backgroundColor: Colors.white,
-        body: Container(
+        body:SafeArea(
+      child: SingleChildScrollView(child : Container(
             child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +59,7 @@ class startscreen extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(top: 60, bottom: 7),
                             padding: EdgeInsets.only(bottom: 11),
-                            child: Text("Digital Information",
+                            child: Text(translator.translate('appTitle'),
                                 style: TextStyle(
                                     fontFamily: 'Pacifico', fontSize: 25)),
                           ),
@@ -50,15 +67,15 @@ class startscreen extends StatelessWidget {
                             height: windowHeight * .01,
                           ),
                           Center(
-                              child: Text(
-                                "We make online exam easy,",
+                              child: Text(translator.translate('textAreafirst')
+                                ,
                                 style: TextStyle(fontSize: 16),
                               )),
                           SizedBox(
                             height: windowHeight * .01,
                           ),
                           Center(
-                              child: Text("Using our app to take exam anywhere ",
+                              child: Text(translator.translate('textAreasecond'),
                                   style: TextStyle(fontSize: 16)))
                         ],
                       ),
@@ -66,18 +83,18 @@ class startscreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.only(top: 0, right: 30, left: 30),
                       child: Center(
-                        child: Image(image: AssetImage("images/output-onlinepngtools (1).png"),height: 350,width: 500,),
+                        child: Image(image: AssetImage("images/transform.png"),height:350,width: 500,),
                       ),
                     ),
                     Container(
                       width: 260,
-                      padding: EdgeInsets.only(top: 50, bottom: 80),
+                      padding: EdgeInsets.only(top: 20, bottom: 110),
                       child: FlatButton(
                           onPressed: () {
                             Navigator.pushNamed(context, signup.id);
                           },
-                          child: Text(
-                            'Get Started',
+                          child: Text(translator.translate('buttonTitle')
+                            ,
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
                           shape: RoundedRectangleBorder(
@@ -86,7 +103,7 @@ class startscreen extends StatelessWidget {
                           color: kMainColor),
                     )
                   ],
-                )))
+                )))))
     );
   }
 }

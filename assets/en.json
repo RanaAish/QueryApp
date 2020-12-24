@@ -1,0 +1,47 @@
+{
+  "appbartitile": "Online Query",
+  "appTitle": "Digital Transformation",
+  "textAreafirst": "We make online Query easy,",
+  "textAreasecond": "Using our app to take query anywhere",
+  "buttonTitle": "Get Started",
+  "signuptitle": "Signup",
+  "name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "signuobuttontext": "Signup",
+  "rowsignuppart1": "Login",
+  "question": " ? ",
+  "rowsignuppart2": "Do have an account",
+  "valdionname": "Name is empty",
+  "vaildationemail": "Email is empty",
+  "validationpass": "Password is empty",
+  "signintitle": "Login",
+  "rowsignin": "Forgot Password?",
+  "admin": "i'm admin",
+  "user": "i'm user",
+  "adminmsg":"Something went wrong!",
+  "homepage": "Home Page",
+  "profile": "My Profile" ,
+  "contact": "Contact",
+  "changepass": "Change Password",
+  "about": "About",
+  "logout": "Log out",
+  "load": "loading..........",
+  "correctanswer": "Correct Answers : ",
+  "sucess": "Sucess",
+  "fauire": "Failure",
+  "startbuttun": "Start",
+  "next": "Next",
+  "RETRY": "RETRY",
+  "CANCEL": "CANCEL",
+  "Report": "Report",
+  "Continue":"Continue",
+  "analysis": "Performance analysis"
+
+
+
+
+
+
+
+}
